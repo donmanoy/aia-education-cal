@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+   	<link rel="stylesheet" href="css/ui-lightness_custom/jquery-ui-1.8.21.custom.css" charset="utf-8">
+   	<link rel="stylesheet" href="main.css">
+    <script type="text/javascript" src="customJs/jquery-1.7.2.min.js" charset="utf-8"></script>
+	<script type="text/javascript" src="customJs/jquery-ui-1.8.21.custom.min.js" charset="utf-8"></script>
+	<!-- support touch on mobile/tablet device -->
+	<script type="text/javascript" src="customJs/jquery.ui.touch-punch.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="customJs/svg_graph.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="customJs/education_calculation.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="customJs/education_general.min.js" charset="utf-8"></script>
+</head>
+<body>
+
+    <div id="front">
+    	<div id="top" class="white">
+    		<span class="size22 bold">Education Planning Calculator</span>
+    		<br/>
+    		<span class="size17">Plan for their head-start in life</span>
+    	</div>
+
+    	<div id="middle">
+    		<div id="left">
+    			<div id="left_top">
+    				<div id="range_num"></div>
+    				<div id="slider-range"></div>
+    				<div id="desc">
+    					<table class="red">
+    						<tr>
+    							<td><a id="q1_help" href="#"><img src="images/question_icon.png"/></a></td>
+    							<td>You have</td>
+    							<td class="size25 bold"><div id="age_diff">14</div></td>
+    							<td>years to reach your goal</td>
+    						</tr>
+    					</table>
+    				</div>
+    			</div>
+    			
+    			<div id="left_bot">
+    				<table id="question" class="size14 lightBlack">
+    					<tr>
+    						<td><a id="table_cost" href="#"><img src="images/question_icon.png"/></a></td>
+    						<td style="width:272px;" colspan="2">Expected total cost of education<br/>
+    						(Future value)</td>
+    						<td id="expected_cost"><div class="input right question_input_box size16 bold lightBlack">0</div></td>
+    					</tr>
+    					<tr>
+    						<td><a id="q2_help" href="#"><img src="images/question_icon.png"/></a></td>
+    						<td colspan="2">How much have you already saved<br/>towards your child’s education fund?</td>
+    						<td id="current_saving"><div class="input right question_input_box size16 bold lightBlack">0</div></td>
+    					</tr>
+    					<tr>
+    						<td></td>
+    						<td colspan="2">How much cash are you willing to invest<br/>each month towards your education goal?</td>
+    						<td id="monthly_saving"><div class="input right question_input_box size16 bold lightBlack">0</div></td>
+    					</tr>
+    					<tr>
+    						<td><a id="q3_help" href="#"><img src="images/question_icon.png"/></a></td>
+    						<td>Expected annualised rate of return<br/>on investment.</td>
+    						<td class="size17 bold"><div id="rate_num">5%</div></td>
+    						<td><div id="slider-rate"></div>
+    							<!--
+    							<div id="rate_num" class="size17 bold"></div>
+    							-->
+    						</td>
+    					</tr>
+    				</table>
+    			</div>
+    		</div>
+    		
+    		<div id="right">
+            
+            
+    			<table>
+    				<tr>
+    					<td>&nbsp;</td>
+    					<td class="bold size21 red">How your investment might grow</td>
+    				</tr>
+    			</table>
+                
+    			<div id="explainValue" class="size17 red">Explain this figure to me <a id="explain_help" href="#"><img src="images/question_icon.png"/></a></div>
+                <div id="maxValueGraph" class="size17 bold red"></div>
+                <div id="forRecal"><button id="recalculate" class="size15 white bold">Recalculate</button></div>
+               	 <div id="legend" class="lightBlack size13">
+                 	<table>
+                    	<tr><td valign="top"><img src="images/legend.jpg"></td><td valign="top">Potential value of your
+                investment<br> (in real terms) over time</td></tr>
+                    </table>
+                 
+                 </div>
+				<div id="svg_frame">
+					<svg id="graph" xmlns="http://www.w3.org/2000/svg" version="1.1" >
+						<g class="axis"></g>
+						<g class="data"></g>
+						<g class="dataLine"></g>
+						<text id="max" x="290" y="340" fill="#555555" class="bold size14">Your Child's Age</text>
+					</svg>
+				</div>
+			</div>
+			
+            <div id="divTable" class="red bold size22">$</div>
+            
+			<div class="clear"></div>
+			
+			<div id="keypad" class="white bold">
+				<table>
+					<tr>
+						<td class="btn">1</td>
+						<td class="btn">2</td>
+						<td class="btn">3</td>
+					</tr>
+					<tr>
+						<td class="btn">4</td>
+						<td class="btn">5</td>
+						<td class="btn">6</td>
+					</tr>
+					<tr>
+						<td class="btn">7</td>
+						<td class="btn">8</td>
+						<td class="btn">9</td>
+					</tr>
+					<tr>
+						<td class="btn">0</td>
+						<td class="btn">00</td>
+						<td class="btn"><img src="images/backspace_btn.png" style="margin-top:9px"/></td>
+					</tr>
+				</table>
+			</div>
+			<div id="keypad_pointer"></div>
+		</div>
+		<div id="bottom">
+			<button id="calculate_btn" class="size15 white bold">Calculate</button>
+			<table class="size20 bold red">
+				<tr>
+					<td style="width:20px;">&gt;&gt;</td>
+					<td class="needMoreSave">You need to save<br/>an additional $<span id="additional_save">496</span> per month<br/>to achieve your goal.</td>
+					<td class="enoughSave">You could be on track to achieve or exceed your goal.</td>
+					<td class="right size14"><a id="important_notes" class="lightBlack" href="#">&gt;&gt; Click here for important notes</a>
+                    </td>
+				</tr>
+			</table>
+		</div>
+		
+		<div id="quick_explain" class="help_box">
+			<div class="content">
+				<div class="close_btn"></div>
+                <p class="red size14 bold">Quick Help</p>
+                <p class="size14 desc">Based on your input values, the red line shows how the actual amount invested could grow over time. But remember, this scenario assumes a constant annual rate of investment return. In practice, you could achieve lower returns in some years, and higher returns in others- progress towards your goal may not <br>be a straight line.</p>
+			</div>
+		</div>
+        
+        <div id="quick_help1" class="help_box">
+			<div class="content">
+				<div class="close_btn"></div>
+				<p class="red size14 bold">Quick Help</p>
+				<p class="size14 desc">Move the sliders to calculate number of years</p>
+			</div>
+		</div>
+		<div id="quick_help2" class="help_box">
+			<div class="content">
+				<div class="close_btn"></div>
+				<p class="red size14 bold">Quick Help</p>
+				<p class="size14 desc">This should include the present value of any existing education fund savings, plus any lump sum investment you think you could add to that today.</p>
+			</div>
+		</div>
+		<div id="quick_help3" class="help_box">
+			<div class="content">
+				<div class="close_btn"></div>
+				<p class="red size14 bold">Quick Help</p>
+				<p class="size14 desc">You may achieve a higher rate of investment return in some years, or a lower rate in other years. Estimate the average rate of return you expect to achieve over the life of your investment.</p>
+			</div>
+		</div>
+		<div id="quick_help4" class="help_box">
+			<div class="content">
+				<div class="close_btn"></div>
+				<p class="red size14 bold">What does this graph represent?</p>
+				<p class="size14 desc">Based on your input values, the red line shows how the actual amount invested could grow over time. But remember, this scenario assumes a constant annual rate of investment return. In practise, you could achieve lower returns in some years and higher returns in others - progress towards your goal may not be a straight line.</p>
+			</div>
+		</div>
+		<div id="quick_help5" class="help_box">
+			<div class="content">
+				<div class="close_btn"></div>
+				<p class="red size14 bold">Important Notes</p>
+				<p class="size13 desc">The information presented is for your information only and does not have regard to the specific investment objectives, financial situation and particular needs of any persons.</p>
+				<p class="size13 desc">These financial tools are designed for assisting in financial planning and are for general reference only. The information and analysis provided by these tools are based on various assumptions, which are subject to change at any time without notice.</p>
+				<p class="size13 desc">No AIA entity, employee or agent gives any representation or warranty as to the accuracy or usefulness of any information provided by these tools, nor do they accept any liability for any loss arising from any use of or reliance upon these tools.</p>
+				<p class="size13 desc">Nothing generated by these tools constitutes professional advice. You are advised to seek financial advice tailored to your own specific objectives, financial situation and particular needs before making any decisions regarding your retirement planning or your investments. Should you have any questions regarding planning for your retirement or the management of your investments, please consult your AIA Financial Services Consultant.</p>
+				<p class="size13 desc">The information presented is correct as at August 2012.</p>
+			</div>
+		</div>
+        
+        <div id="quick_table" class="help_box">
+			<div class="content">
+				<div class="close_btn"></div>
+			</div>
+		</div>
+        
+	</div>
+</body>
+</html>
